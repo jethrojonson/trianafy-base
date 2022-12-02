@@ -3,8 +3,6 @@ package com.salesianostriana.dam.trianafy.controller;
 import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.service.SongService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -57,6 +55,10 @@ public class SongController {
                             )}
                     )}
 
+            ),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado canciones",
+                    content = @Content
             )
     })
     @GetMapping("")

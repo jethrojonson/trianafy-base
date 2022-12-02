@@ -3,6 +3,8 @@ package com.salesianostriana.dam.trianafy.controller;
 import com.salesianostriana.dam.trianafy.model.Playlist;
 import com.salesianostriana.dam.trianafy.service.PlaylistService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class PlaylistController {
     private final PlaylistService playlistService;
 
     @Operation(summary = "Este endpoint devuelve todas las listas de reproducción")
+    @ApiResponses(value ={
+            @ApiResponse()
+    })
     @GetMapping("")
     public ResponseEntity <List<Playlist>> getAllPlaylists (){
         List<Playlist>result=playlistService.findAll();

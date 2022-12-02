@@ -40,4 +40,13 @@ public class ArtistService {
         repository.deleteById(id);
     }
 
+    public boolean validateArtist(Artist artist){
+        String name = artist.getName();
+        for(Artist a : findAll()){
+            if(a.getName().equals(name))
+                return false;
+        }
+        return name!=null && name!="" ;
+    }
+
 }
