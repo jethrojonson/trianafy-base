@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/artist")
@@ -132,18 +133,16 @@ public class ArtistController {
     //FALTA DOCU
     @PutMapping("/{id}")
     public ResponseEntity<?> updateAnArtist(@Parameter(name = "Id del artista", required = true) @PathVariable Long id, @RequestBody Artist toAdd) {
-        Artist old = artistService.findById(id).orElse(null);
-        if (old != null) {
+        Optional<Artist> old = artistService.findById(id);
+        if (old.isPresent()) {
             songService.findAll()
                     .stream()
-                    .filter(song -> id.equals(song
-                            .getArtist()
-                            .getId()))
+                    .filter(song -> song.getArtist()!=null&&song.getArtist().getId()==id)
                     .forEach(song -> {
                         song.getArtist().setName(toAdd.getName());
                         songService.edit(song);
                     });
-            toAdd.setId(old.getId());
+            toAdd.setId(old.get().getId());
             return ResponseEntity.ok(artistService.add(toAdd));
         } else
             return ResponseEntity.notFound().build();
@@ -152,18 +151,16 @@ public class ArtistController {
     //FALTA DOCU
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAnArtist(@Parameter(name = "Id del artista", required = true) @PathVariable Long id) {
-        Artist result = artistService.findById(id).orElse(null);
-        if (result != null) {
+        Optional <Artist> result = artistService.findById(id);
+        if (result.isPresent()) {
             songService.findAll()
                     .stream()
-                    .filter(song -> id.equals(song
-                            .getArtist()
-                            .getId()))
+                    .filter(song -> song.getArtist()!=null&&song.getArtist().getId()==id)
                     .forEach(song -> {
                         song.setArtist(null);
                         songService.edit(song);
                     });
-            artistService.deleteById(id);
+            artistService.delete(result.get());
             return ResponseEntity.noContent().build();
         } else
             return ResponseEntity.notFound().build();
