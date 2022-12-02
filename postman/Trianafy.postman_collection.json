@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "01d8cd51-c8ec-455b-a5b4-df9327026545",
+		"_postman_id": "7bc5e96e-e221-4f9b-bc42-bb1252ea84c1",
 		"name": "Trianafy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23783446"
@@ -59,12 +59,132 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/artist",
+							"raw": "{{BASE_URL}}/artist/",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"artist"
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getArtistById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/artist/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								":id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addNewArtist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\" : \"Segismundo Toxicómano\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artist/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateArtist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Snoop Dogg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artist/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteArtist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artist/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
 							]
 						}
 					},
