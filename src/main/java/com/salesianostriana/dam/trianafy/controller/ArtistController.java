@@ -120,7 +120,6 @@ public class ArtistController {
                     content = @Content
             )
     })
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getArtistById(@Parameter(description = "Id del artista", required = true) @PathVariable Long id) {
         Artist result = artistService.findById(id).orElse(null);
@@ -130,14 +129,46 @@ public class ArtistController {
             return ResponseEntity.notFound().build();
     }
 
-    //FALTA DOCU
+    @Operation(summary = "Este endpoint actualiza un artista")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json",
+            array = @ArraySchema(schema = @Schema(implementation = Artist.class)),
+            schema = @Schema(implementation = Long.class),
+            examples = @ExampleObject(
+                    value = """
+                            {
+                                "id" : 1,
+                                "name" : "Nombre del artista"
+                            }
+                            """
+            )),
+            description = "Payload de la request"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha editado el artista",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Artist.class)),
+                            examples = @ExampleObject(
+                                    value = """
+                                            {
+                                                "id" : 1,
+                                                "name" : "Nombre Artista"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404",
+                    content = @Content
+            )
+    })
     @PutMapping("/{id}")
     public ResponseEntity<?> updateAnArtist(@Parameter(name = "Id del artista", required = true) @PathVariable Long id, @RequestBody Artist toAdd) {
         Optional<Artist> old = artistService.findById(id);
         if (old.isPresent()) {
             songService.findAll()
                     .stream()
-                    .filter(song -> song.getArtist()!=null&&song.getArtist().getId()==id)
+                    .filter(song -> song.getArtist() != null && song.getArtist().getId() == id)
                     .forEach(song -> {
                         song.getArtist().setName(toAdd.getName());
                         songService.edit(song);
@@ -148,14 +179,22 @@ public class ArtistController {
             return ResponseEntity.notFound().build();
     }
 
-    //FALTA DOCU
+    @Operation(summary = "Este endpoint elimina un artista")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha eliminado al artista"
+            ),
+            @ApiResponse(responseCode = "404",
+                    content = @Content
+            )
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAnArtist(@Parameter(name = "Id del artista", required = true) @PathVariable Long id) {
-        Optional <Artist> result = artistService.findById(id);
+        Optional<Artist> result = artistService.findById(id);
         if (result.isPresent()) {
             songService.findAll()
                     .stream()
-                    .filter(song -> song.getArtist()!=null&&song.getArtist().getId()==id)
+                    .filter(song -> song.getArtist() != null && song.getArtist().getId() == id)
                     .forEach(song -> {
                         song.setArtist(null);
                         songService.edit(song);
