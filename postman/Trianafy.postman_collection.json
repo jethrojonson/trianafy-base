@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7bc5e96e-e221-4f9b-bc42-bb1252ea84c1",
+		"_postman_id": "8290b7c7-84ac-4821-b3ac-842f1fda1936",
 		"name": "Trianafy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23783446"
@@ -10,17 +10,126 @@
 			"name": "Songs",
 			"item": [
 				{
+					"name": "addNewSong",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"La del pirata cojo\",\r\n    \"album\" : \"Historias\",\r\n    \"year\" : 2004,\r\n    \"artistID\" : \"1\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/song/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getAllSongs",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/song",
+							"raw": "{{BASE_URL}}/song/",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"song"
+								"song",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSongById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/song/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSong",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"La del pirata cojo\",\r\n    \"album\" : \"Historias\",\r\n    \"year\" : 2004,\r\n    \"artistID\": 14\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/song/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSong",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/song/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
 							]
 						}
 					},
@@ -53,6 +162,33 @@
 		{
 			"name": "Artist",
 			"item": [
+				{
+					"name": "addNewArtist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Manolo cabezabolo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artist/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "getAllArtists",
 					"request": {
@@ -95,35 +231,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "13"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "addNewArtist",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n        \"name\" : \"Segismundo Toxicómano\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/artist/",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"artist",
-								""
 							]
 						}
 					},
@@ -136,7 +245,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Snoop Dogg\"\r\n}",
+							"raw": "{\r\n    \"name\":\"Joaquin Sabina\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,7 +264,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "3"
+									"value": "13"
 								}
 							]
 						}
@@ -163,7 +272,7 @@
 					"response": []
 				},
 				{
-					"name": "DeleteArtist",
+					"name": "deleteArtist",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -183,7 +292,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
