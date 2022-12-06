@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.trianafy.controller;
 
+import com.salesianostriana.dam.trianafy.dto.artist.ArtistDTO;
 import com.salesianostriana.dam.trianafy.model.Artist;
 
 import com.salesianostriana.dam.trianafy.service.ArtistService;
@@ -130,19 +131,6 @@ public class ArtistController {
     }
 
     @Operation(summary = "Este endpoint actualiza un artista")
-    @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json",
-            array = @ArraySchema(schema = @Schema(implementation = Artist.class)),
-            schema = @Schema(implementation = Long.class),
-            examples = @ExampleObject(
-                    value = """
-                            {
-                                "id" : 1,
-                                "name" : "Nombre del artista"
-                            }
-                            """
-            )),
-            description = "Payload de la request"
-    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se ha editado el artista",
@@ -159,11 +147,18 @@ public class ArtistController {
                     )
             ),
             @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado al artista",
+                    content = @Content
+            ),
+            @ApiResponse(responseCode = "400",
+                    description = "Petición erronéa",
                     content = @Content
             )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAnArtist(@Parameter(name = "Id del artista", required = true) @PathVariable Long id, @RequestBody Artist toAdd) {
+    public ResponseEntity<Artist> updateAnArtist(@PathVariable Long id, @RequestBody ArtistDTO artistDTO) {
+        Artist toAdd = new Artist();
+        toAdd.setName(artistDTO.getName());
         Optional<Artist> old = artistService.findById(id);
         if (old.isPresent()) {
             songService.findAll()
